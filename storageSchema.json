@@ -1,0 +1,51 @@
+{ 
+    "version": 1231231232,
+    "notes": [
+        {
+            "id": 1231232,
+            "text": "text here",
+            "created_at": 234232132,
+            "updated_at": 323213212,
+            "synced": true,
+            "bucket": 0,
+            "bucket_custom_order": 0
+        },
+        
+        {
+            "id": 1231232,
+            "text": "text here",
+            "created_at": 234232132,
+            "updated_at": 323213212,
+            "synced": false,
+            "bucket": 0,
+            "bucket_custom_order": 1
+        }
+
+    ],
+
+    "buckets": [
+        {
+            "id": 0,
+            "name": "Root",
+            "notes": [
+                {
+                    "id": 324234234,
+                    "sort": "age",
+                    "order": "custom",
+                    "direction": "ascending"
+                },
+                {
+                    "sort": "age",
+                    "order": "age",
+                    "direction": "descending"
+                }
+            ]
+        },
+
+        {
+            "id": 2311312,
+            "name": "bucket name",
+            "parent_bucket": [0]
+        }
+    ]
+}

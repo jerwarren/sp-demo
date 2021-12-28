@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List test</title>
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet">
+</head>
+<body data-menu-state="closed" data-folder-view="list">
+    <div id="menu">
+        <div class="folder">
+            <span class="material-icons">folder</span><br>
+            Literature
+        </div>
+        <div class="folder">
+            <span class="material-icons">folder</span><br>
+            Art
+        </div>
+        <div class="folder current">
+            <span class="material-icons">folder</span><br>
+            Lyrics
+        </div>
+        <div class="folder">
+            <span class="material-icons">folder</span><br>
+            Movies
+        </div>
+        <div class="folder">
+            Radio Plays
+        </div>
+        <div class="folder">
+            <span class="material-icons">folder</span><br>
+            Folder Name
+        </div>
+        <div class="folder">
+            <span class="material-icons">folder</span><br>
+            Folder Name
+        </div>
+        <div class="folder">
+            <span class="material-icons">folder</span><br>
+            Folder Name
+        </div>
+        <div class="folder">
+            <span class="material-icons">folder</span><br>
+            Folder Name
+        </div>
+        <div class="folder">
+            <span class="material-icons">folder</span><br>
+            Folder Name
+        </div>
+    </div>
+   
+     <button id="add-folder">
+        <span class="material-icons">
+        create_new_folder
+        </span>
+    </button>
+   
+    <div id="content">
+        <div class="header">
+            <div class="hamburger">
+                <span id="hamburger" class="material-icons">
+                    inventory_2
+                </span>
+            </div>
+            <div class="label">Uncategorized</div>
+            <div id="sort"><span class="material-icons">sort</span></div>
+            <div id="view" onclick="toggleView()">
+                <span class="material-icons list">view_agenda</span>
+                <span class="material-icons grid">grid_view</span></div>
+        </div>
+        <div class="drag-container">
+
+        </div>
+        <div class="board">
+            <div class="board-column">
+                <div class="board-column-container">
+                    <div class="board-column-content-wrapper">
+                        <div class="board-column-content">
+                            <div data-id="1" class="board-item"><div class="board-item-content">1. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
+                            <div data-id="2" class="board-item"><div class="board-item-content">2. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
+                            <div data-id="3" class="board-item"><div class="board-item-content">3. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
+                            <div data-id="4" class="board-item"><div class="board-item-content">4. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
+                            <div data-id="5" class="board-item"><div class="board-item-content">5. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
+                            <div data-id="6" class="board-item"><div class="board-item-content">6. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
+                            <div data-id="7" class="board-item"><div class="board-item-content">7. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
+                            <div data-id="8" class="board-item"><div class="board-item-content">8. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
+                            <div data-id="9" class="board-item"><div class="board-item-content">9. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
+                            <div data-id="10" class="board-item"><div class="board-item-content">10. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+    </div>
+
+    </footer>
+    <script src="//cdn.jsdelivr.net/npm/muuri@0.9.5/dist/muuri.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/web-animations-js@2.3.2/web-animations.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
