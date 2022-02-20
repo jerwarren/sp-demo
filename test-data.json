@@ -1,0 +1,16 @@
+{ 
+    "version": 1231231232,
+    "notes": [
+
+    ],
+
+    "folders": [
+        {
+            "id": 0,
+            "name": "Root",
+            "sort": "age",
+            "order": "custom",
+            "direction": "ascending"
+        }
+    ]
+}

@@ -6,11 +6,14 @@ html, body {
   width: 100%;
   height: 100%;
   font-family: Helvetica, Arial, sans-serif;
+  overscroll-behavior: contain;
+  overflow:hidden;
 }
 body {
   margin: 0;
   padding: 0;
   background-color:#fbb040;
+  position:absolute;
 }
 
 div#content {
@@ -65,9 +68,10 @@ div#menu {
 
 .header div#view {
   position: fixed;
-  right: 30px;
+  right: 50px;
   top: 20px;
-  width: 50px;
+  width: 25px;
+
 }
 
 .drag-container {
@@ -119,35 +123,71 @@ div#menu {
 .board-column-content {
   position: relative;
   min-height: 100%;
- 
 }
 
 
 .board-item {
   position: absolute;
   margin: 10px;
-  max-height: 87px;
+  max-height: 100px;
+  min-height: 100px;
   overflow-y: hidden;
   border: 1px solid black;
-  padding-top: 0px;
-  padding-bottom: 5px;
+  padding: 0;
   border-radius: 5px;
   border-top-left-radius: 25px;
   border-bottom-right-radius: 25px;
   background-color: white;
-  padding-left: 15px;
-  padding-right: 5px;
   text-align: left;
-  border: 5px solid rgba(0,0,0,0);
+  border: 0px solid rgba(0,0,0,0);
+
+}
+.board-item .note-buttons {
+  display: none;
+}
+
+.board-item.selected {
+  border: 5px solid #00aaee;
+  height: 110px;
+  max-height: 110px;
+}
+
+.board-item.selected .note-buttons {
+  display: block;
+  width: 50%;
+  right: 0;
+  position: absolute;
+  bottom: 0;
+  text-align: right;
+  padding-right: 15px;
+}
+
+
+.board-item textarea {
+  width: 100%;
+  height: 5.8em;
+  border: none;
+  overflow-y: hidden;
+  padding: 15px;
 }
 
 [data-folder-view="list"] .board-item {
-  width: 94%;
+  width: auto;
+  margin-left: 1em;
+  margin-right: 1em;
+  min-width: 94%;
 } 
 
 [data-folder-view="grid"] .board-item {
   width: 44%;
   float: left;
+  /* margin-left: 1em; */
+  /* margin-right: 1em; */
+}
+
+[data-direction="asc"] #direction {
+  transform: rotate(180deg);
+  margin-top: -3px;
 }
 
 [data-folder-view="list"] .list, [data-folder-view="grid"] .grid {
@@ -209,20 +249,145 @@ div#menu {
   border: none;
   box-shadow: 3px 3px 10px #000000a8;
   color:  white;
-  background-color: #bf1e74;
+  background-color: #00aaee;
+}
+
+#add-note {
+  position:fixed;
+  bottom: 7px;
+  right: 13px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 3px 3px 10px #000000a8;
+  color:  white;
+  background-color: #00aaee;
+  z-index: 10000;
+}
+
+#import-notes {
+  position:fixed;
+  bottom: 7px;
+  left: 13px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 3px 3px 10px #000000a8;
+  color:  white;
+  background-color: #00aaee;
+  z-index: 10000;
+}
+
+#export-notes {
+  position:fixed;
+  bottom: 7px;
+  left: 73px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 3px 3px 10px #000000a8;
+  color:  white;
+  background-color: #00aaee;
+  z-index: 10000;
 }
 
 #add-folder span.material-icons {
   font-size: 50px;
 }
 
-div#sort {
+div#direction {
   /* float: right; */
   top: 0;
   position: absolute;
   top: 19px;
   right: 15px;
 }
+
+div#editor {
+  display: none;
+}
+
+div#editor.visible {
+  display: block;
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  width: 100vw;
+  z-index: 50;
+}
+div#editor.visible:before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 51, 153, 0.8);
+}
+
+
+div#save-button {
+  width: 4rem;
+  height: 4rem;
+  background-color: #00aaee;
+  border-radius: 50%;
+  position: absolute;
+  right: 0;
+  margin-top: -1rem;
+  margin-right: 1rem;
+  text-align: center;
+  box-shadow: 3px 3px 10px #000000a8;
+}
+
+div#delete-button{ 
+  position: fixed;
+  left: 3rem;
+  margin-top: -2.5rem;
+}
+
+div#delete-button .material-icons {
+  color: #00aaee;
+  font-size: 2rem;
+}
+
+div#save-button .material-icons {
+  font-size: 3rem;
+  color:white;
+}
+
+
+textarea#canvas {
+  width: auto;
+  background-color: white;
+  height: 100%;
+  min-height: 50vw;
+  max-height: 50vh;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: 2rem;
+  position: relative;
+  width: calc(100vw - 4rem);
+  padding: 1rem;
+  overflow-y: scroll;
+}
+
+div#word-count {
+  height: 2rem;
+  float: left;
+  width: 8rem;
+  color: black;
+  position: absolute;
+  left: 2rem;
+  padding: 0.5rem;
+  color: white;
+  background-color: #00aaee;
+  font-size: 1rem;
+  text-align: center;
+}
+
 
 
 @media (max-width: 600px) {

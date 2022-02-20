@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
       rel="stylesheet">
 </head>
-<body data-menu-state="closed" data-folder-view="list">
+<body data-menu-state="closed" data-folder-view="list" data-direction="asc">
     <div id="menu">
         <div class="folder">
             <span class="material-icons">folder</span><br>
@@ -66,7 +66,7 @@
                 </span>
             </div>
             <div class="label">Uncategorized</div>
-            <div id="sort"><span class="material-icons">sort</span></div>
+            <div id="direction" onclick="toggleDirection()"><span class="material-icons">sort</span></div>
             <div id="view" onclick="toggleView()">
                 <span class="material-icons list">view_agenda</span>
                 <span class="material-icons grid">grid_view</span></div>
@@ -79,24 +79,43 @@
                 <div class="board-column-container">
                     <div class="board-column-content-wrapper">
                         <div class="board-column-content">
-                            <div data-id="1" class="board-item"><div class="board-item-content">1. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
-                            <div data-id="2" class="board-item"><div class="board-item-content">2. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
-                            <div data-id="3" class="board-item"><div class="board-item-content">3. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
-                            <div data-id="4" class="board-item"><div class="board-item-content">4. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
-                            <div data-id="5" class="board-item"><div class="board-item-content">5. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
-                            <div data-id="6" class="board-item"><div class="board-item-content">6. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
-                            <div data-id="7" class="board-item"><div class="board-item-content">7. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
-                            <div data-id="8" class="board-item"><div class="board-item-content">8. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
-                            <div data-id="9" class="board-item"><div class="board-item-content">9. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
-                            <div data-id="10" class="board-item"><div class="board-item-content">10. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div>
+                
+                         <!--  <div data-id="1" class="board-item"><div class="board-item-content">1. Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.</div></div> --> 
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <footer>
-    </div>
+        <button id="add-note" onclick="newNote()">
+            <span class="material-icons">
+                add
+            </span>
+        </button>
+        <button id="import-notes" onclick="importNotes()">
+            <span class="material-icons">
+                upload
+            </span>
+            <input id="file-import" type="file" name="name" style="display: none;" />
 
+        </button>
+        <button id="export-notes" onclick="exportNotes()">
+            <span class="material-icons">
+                download
+            </span>
+        </button>
+        <footer></footer>
+    </div>
+    <div id="editor" class="" onkeyup="countWords()">
+        <textarea id="canvas"></textarea>
+        <div id="word-count">0 words</div>
+        <div id="delete-button">
+            <span class="material-icons">delete</span>
+        </div>
+        <div id="save-button" onclick="addNoteToGrid()">
+            <span class="material-icons">done</span>
+        </div>
+    </div>
     </footer>
     <script src="//cdn.jsdelivr.net/npm/muuri@0.9.5/dist/muuri.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/web-animations-js@2.3.2/web-animations.min.js"></script>
