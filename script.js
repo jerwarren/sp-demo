@@ -235,6 +235,9 @@ function countWords() {
 
 function newNote(){
   editor.classList.add("visible");
+  document.querySelector("#canvas").value="";
+  document.querySelector("#word-count").innerHTML = "0 words";
+
 }
 
 function addNote(){
