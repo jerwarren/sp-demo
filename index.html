@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
       rel="stylesheet">
 </head>
-<body data-menu-state="closed" data-folder-view="list" data-direction="asc">
+<body data-menu-state="closed" data-search-state="closed" data-folder-view="list" data-direction="asc">
     
    <!--
      <button id="add-folder">
@@ -118,6 +118,19 @@
                 Folder Name
             </div>
         </div>
+    </div>
+
+    <div id="search" class="button-wrapper">
+        
+        <button onclick="toggleSearch()">
+            <span class="material-icons closed">
+                search
+            </span>
+            <span class="material-icons open">
+                close
+            </span>
+        </button>
+        <input type="text" placeholder="Search">
     </div>
     
     <div id="toggle-menu" class="button-wrapper">

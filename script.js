@@ -80,6 +80,14 @@ function toggleBuckets(){
   }
 }
 
+function toggleSearch(){
+  if (body.getAttribute("data-search-state") == "closed"){
+    body.setAttribute("data-search-state", "open");
+  } else {
+    body.setAttribute("data-search-state", "closed");
+  }
+}
+
 
 function toggleView(){
   mode = body.getAttribute("data-folder-view");
