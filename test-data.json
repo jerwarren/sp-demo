@@ -1,6 +1,15 @@
 { 
     "version": 1231231232,
     "notes": [
+        {
+            "id": 1231232,
+            "text": "Your first note.",
+            "createdAt": 234232132,
+            "updatedAt": 323213212,
+            "synced": true,
+            "folderId": 0,
+            "folder_custom_order": 0
+        }
 
     ],
 

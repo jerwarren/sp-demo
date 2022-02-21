@@ -1,5 +1,5 @@
 var body = document.querySelector('body');
-var hamburger = document.querySelector('#hamburger');
+var folders = document.querySelector('#folders');
 var dragContainer = document.querySelector('.drag-container');
 var itemContainers = [].slice.call(document.querySelectorAll('.board-column-content'));
 
@@ -15,7 +15,7 @@ var localData;
 var editor = document.getElementById("editor");
 
 
-hamburger.addEventListener("click", toggleBuckets);
+folders.addEventListener("click", toggleBuckets);
 // Init board grid so we can drag those columns around.
 boardGrid = new Muuri('.board');
 loadData();
@@ -88,8 +88,11 @@ function toggleView(){
   } else {
     body.setAttribute("data-folder-view", "list");
   }
-  grid.refreshItems();
-  grid.layout();
+
+  setTimeout(function(){
+    grid.refreshItems();
+    grid.layout();
+  }, 200)
 }
 
 function toggleDirection(){

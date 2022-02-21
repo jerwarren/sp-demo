@@ -5,67 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List test</title>
-    <link href="style.css?2022-02-19-1" rel="stylesheet">
+    <link href="style.css?2022-02-21-1" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
       rel="stylesheet">
 </head>
 <body data-menu-state="closed" data-folder-view="list" data-direction="asc">
-    <div id="menu">
-        <div class="folder">
-            <span class="material-icons">folder</span><br>
-            Literature
-        </div>
-        <div class="folder">
-            <span class="material-icons">folder</span><br>
-            Art
-        </div>
-        <div class="folder current">
-            <span class="material-icons">folder</span><br>
-            Lyrics
-        </div>
-        <div class="folder">
-            <span class="material-icons">folder</span><br>
-            Movies
-        </div>
-        <div class="folder">
-            Radio Plays
-        </div>
-        <div class="folder">
-            <span class="material-icons">folder</span><br>
-            Folder Name
-        </div>
-        <div class="folder">
-            <span class="material-icons">folder</span><br>
-            Folder Name
-        </div>
-        <div class="folder">
-            <span class="material-icons">folder</span><br>
-            Folder Name
-        </div>
-        <div class="folder">
-            <span class="material-icons">folder</span><br>
-            Folder Name
-        </div>
-        <div class="folder">
-            <span class="material-icons">folder</span><br>
-            Folder Name
-        </div>
-    </div>
-   
+    
+   <!--
      <button id="add-folder">
         <span class="material-icons">
         create_new_folder
         </span>
     </button>
-   
+   -->
     <div id="content">
-        <div class="header">
-            <div class="hamburger">
-                <span id="hamburger" class="material-icons">
+        <div class="header"> 
+            <div class="icon" style="float: left;">
+                <span class="material-icons">
                     inventory_2
                 </span>
             </div>
-            <div class="label">Uncategorized</div>
+            <div class="label">
+                Uncategorized
+            </div>
             <div id="direction" onclick="toggleDirection()"><span class="material-icons">sort</span></div>
             <div id="view" onclick="toggleView()">
                 <span class="material-icons list">view_agenda</span>
@@ -87,11 +49,9 @@
                 </div>
             </div>
         </div>
-        <button id="add-note" onclick="newNote()">
-            <span class="material-icons">
-                add
-            </span>
-        </button>
+        
+
+        <!--
         <button id="import-notes" onclick="importNotes()">
             <span class="material-icons">
                 upload
@@ -104,7 +64,75 @@
                 download
             </span>
         </button>
+        -->
         <footer></footer>
+    </div>
+
+    <div id="folders" class="button-wrapper">
+        <button>
+            <span class="material-icons closed">
+                inventory_2
+            </span>
+            <span class="material-icons open">
+                close
+            </span>
+        </button>
+        <div id="menu">
+            <div class="folder">
+                <span class="material-icons">folder</span><br>
+                Literature
+            </div>
+            <div class="folder">
+                <span class="material-icons">folder</span><br>
+                Art
+            </div>
+            <div class="folder current">
+                <span class="material-icons">folder</span><br>
+                Lyrics
+            </div>
+            <div class="folder">
+                <span class="material-icons">folder</span><br>
+                Movies
+            </div>
+            <div class="folder">
+                Radio Plays
+            </div>
+            <div class="folder">
+                <span class="material-icons">folder</span><br>
+                Folder Name
+            </div>
+            <div class="folder">
+                <span class="material-icons">folder</span><br>
+                Folder Name
+            </div>
+            <div class="folder">
+                <span class="material-icons">folder</span><br>
+                Folder Name
+            </div>
+            <div class="folder">
+                <span class="material-icons">folder</span><br>
+                Folder Name
+            </div>
+            <div class="folder">
+                <span class="material-icons">folder</span><br>
+                Folder Name
+            </div>
+        </div>
+    </div>
+    
+    <div id="toggle-menu" class="button-wrapper">
+        <button>
+            <span class="material-icons">
+                menu
+            </span>
+        </button>
+    </div>
+    <div id="add-note" class="button-wrapper">
+        <button onclick="newNote()">
+            <span class="material-icons">
+                add
+            </span>
+        </button>
     </div>
     <div id="editor" class="" onkeyup="countWords()">
         <textarea id="canvas"></textarea>
@@ -119,6 +147,6 @@
     </footer>
     <script src="//cdn.jsdelivr.net/npm/muuri@0.9.5/dist/muuri.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/web-animations-js@2.3.2/web-animations.min.js"></script>
-    <script src="script.js?2022-02-19-1"></script>
+    <script src="script.js?2022-02-21-1"></script>
 </body>
 </html>

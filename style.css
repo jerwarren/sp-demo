@@ -12,38 +12,46 @@ html, body {
 body {
   margin: 0;
   padding: 0;
-  background-color:#fbb040;
+  background-color:#bf1e74;
   position:absolute;
+  background-image: url(img/Splat\ BG.png);
+  background-size: contain;
+  background-position: center bottom;
 }
 
 div#content {
-  transition: 0.3s;
+  transition: 0.6s;
   width: 100vw;
+  padding-bottom: 76px;
+}
+
+[data-menu-state="open"] div#content {
+  padding-left: 68px;
+  transition: 0.6s;
 }
 
 [data-menu-state="open"] {
   position: fixed;
 }
 
-[data-menu-state="open"] #content {
-  margin-left: 100px;
-  top: 0;
-  width: 100vw;
-  /* height: 100vh; */
-  /* overflow-y: scroll; */
-}
+
 
 div#menu {
-  width: 30%;
-  /* height: 100vh; */
-  /* z-index: -1; */
-  /* border: 1px solid red; */
-  top: 50px;
+  width: 71px;
+  height: calc(100vh - 81px);
   position: fixed;
-  height: calc(100vh - 130px);
   overflow-y: scroll;
+  overflow-x: hidden;
   color: #741b47;
+  transition: 0.3s;
+  margin-left: -11px;
+  margin-top: 15px;
+  padding-bottom: 50px;
+  background-color: rgb(255 255 255 / 53%);
+  border-radius: 10px;
+  box-shadow: inset 1px 1px 3px rgb(0 0 0 / 70%);
 }
+
 
 .header {
   height: 60px;
@@ -51,19 +59,39 @@ div#menu {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100000;
+  z-index: 40;
   width: 100%;
   padding:20px;
   color: white;
-  background-color:#741b47;
+  background-color:rgba(0,0,0,0);
 }
+
 .header .label {
-  top: 20px;
-  position:fixed;
-  left: 65px;
-  top: 21px;
-  font-size: 20px;
+  padding-top: 3px;
+  font-size: 18px;
   font-weight: bold;
+  transition: 0.3s;
+  margin-left: 32px!important;
+  transition: 0.6s;
+}
+
+.header .label .material-icons {
+  padding-top: 5px;
+}
+
+.header .label .icon {
+  margin-left: -10px;
+  padding-left: 0;
+}
+
+[data-menu-state="open"] .header .label {
+  margin-left: 100px!important;
+  transition: 0.6s;
+}
+
+[data-menu-state="open"] .header .icon {
+  margin-left: 66px;
+  transition: 0.6s;
 }
 
 .header div#view {
@@ -113,11 +141,12 @@ div#menu {
 .board-column-content-wrapper {
   position: relative;
   padding: 8px;
-  background: #bf1e74;
+  padding-left: 0;
   overflow-y: auto;
   border-radius: 0 0 5px 5px;
   height: calc(100vh - 60px);
   top: 0;
+  padding-bottom: 70px;
 }
 
 .board-column-content {
@@ -140,8 +169,10 @@ div#menu {
   background-color: white;
   text-align: left;
   border: 0px solid rgba(0,0,0,0);
-
+  box-shadow: 2px 2px 5px rgb(0 0 0 / 40%);
+  transition: 0.3s;
 }
+
 .board-item .note-buttons {
   display: none;
 }
@@ -219,52 +250,96 @@ div#menu {
 
 
 .folder {
-  font-size: 15px;
+  font-size: 12px;
   height: auto;
   /* padding-top: 20px; */
-  width: 81px;
+  width: 80px;
   color: #741b47;
   text-align: center;
-  border: 1px solid #741b47;
-  background-color: rgba(255, 255, 255, 0.3);
-  margin: 6px;
-  margin-top: 16px;
-  padding: 9px;
-  border-radius: 15px;
+  margin-top: 5px;
+  padding: 5px;
+  font-weight: 600;
   /* padding-bottom: 43px; */
 }
 
 .folder .material-icons {
   font-size: 38px;
-  color: #00aaee;
+  color: #00abee;
 }
 
-#add-folder {
-  position:fixed;
-  bottom: 7px;
-  left: 13px;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  border: none;
-  box-shadow: 3px 3px 10px #000000a8;
-  color:  white;
-  background-color: #00aaee;
-}
-
-#add-note {
-  position:fixed;
-  bottom: 7px;
-  right: 13px;
+.button-wrapper button {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   border: none;
-  box-shadow: 3px 3px 10px #000000a8;
+  /*box-shadow: 3px 3px 10px #000000a8;*/
   color:  white;
   background-color: #00aaee;
-  z-index: 10000;
+  z-index: 50;
+  box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.3);
 }
+
+
+.button-wrapper {
+  position:fixed;
+  bottom: -5px;
+  width: 76px;
+  height: 76px;
+  background: #fbb040;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  padding: 13px;
+  z-index: 40;
+  box-shadow: 2px 2px 10px rgb(0 0 0 / 50%);
+}
+
+/*
+#add-folder {
+  left: 0px;
+}
+*/
+
+#add-note {
+  right: 0px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 40px;
+}
+
+#folders {
+  top: calc(100vh - 76px);
+  left: 0px;
+  border-top-left-radius: 0;
+  height: 100vh;
+  transition: 0.3s;
+  border-top-right-radius: 40px;
+}
+
+[data-menu-state="open"] #folders {
+  top: 0px;
+  transition: 0.3s;
+}
+
+[data-menu-state="open"] #folders button .open {
+  display: open;
+}
+
+[data-menu-state="open"] #folders button .closed {
+  display: none;
+}
+
+[data-menu-state="closed"] #folders button .open {
+  display: none;
+}
+
+[data-menu-state="closed"] #folders button .closed {
+  display: block;
+}
+
+#toggle-menu {
+  left: calc(50vw - 38px);
+}
+
+
 
 #import-notes {
   position:fixed;
@@ -277,7 +352,8 @@ div#menu {
   box-shadow: 3px 3px 10px #000000a8;
   color:  white;
   background-color: #00aaee;
-  z-index: 10000;
+  z-index: 40;
+  display:none;
 }
 
 #export-notes {
@@ -291,7 +367,8 @@ div#menu {
   box-shadow: 3px 3px 10px #000000a8;
   color:  white;
   background-color: #00aaee;
-  z-index: 10000;
+  z-index: 40;
+  display:none;
 }
 
 #add-folder span.material-icons {
@@ -313,7 +390,7 @@ div#editor {
 div#editor.visible {
   display: block;
   position: fixed;
-  top: 50px;
+  top: 25px;
   bottom: 0;
   width: 100vw;
   z-index: 50;
@@ -323,29 +400,31 @@ div#editor.visible:before {
   content: '';
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 51, 153, 0.8);
+  width: 100vw;
+  height: calc(100vh + 100px);
+  background: #741b48df;
+  margin-top: -100px;
 }
 
 
 div#save-button {
-  width: 4rem;
-  height: 4rem;
+  width: 50px;
+  height: 50px;
   background-color: #00aaee;
   border-radius: 50%;
   position: absolute;
   right: 0;
-  margin-top: -1rem;
-  margin-right: 1rem;
+  margin-top: -30px;
+  margin-right: 15px;
   text-align: center;
   box-shadow: 3px 3px 10px #000000a8;
+
 }
 
 div#delete-button{ 
   position: fixed;
-  left: 3rem;
-  margin-top: -2.5rem;
+    left: 40px;
+    margin-top: -45px;
 }
 
 div#delete-button .material-icons {
@@ -358,7 +437,10 @@ div#save-button .material-icons {
   color:white;
 }
 
-
+textarea {
+  background-color: white!important;
+  resize: none;
+}
 textarea#canvas {
   width: auto;
   background-color: white;
@@ -371,21 +453,30 @@ textarea#canvas {
   position: relative;
   width: calc(100vw - 4rem);
   padding: 1rem;
+
   overflow-y: scroll;
+  resize:none;
 }
 
 div#word-count {
-  height: 2rem;
+  height: 15px;
   float: left;
-  width: 8rem;
+  width: 50;
   color: black;
   position: absolute;
   left: 2rem;
-  padding: 0.5rem;
+  /* padding: 7px; */
   color: white;
   background-color: #00aaee;
-  font-size: 1rem;
+  font-size: 11px;
   text-align: center;
+  padding-left: 3px;
+  padding-right: 5px;
+  margin-top: -4px;
+  border-bottom-right-radius: 5px;
+}
+
+
 }
 
 
