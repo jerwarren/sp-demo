@@ -337,8 +337,7 @@ div#menu {
 }
 
 [data-search-state="open"] #search {
-  left: 0;
-  border-bottom-right-radius: 0;
+  left: -100px;
   transition: 0.3s;
 }
 
