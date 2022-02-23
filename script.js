@@ -14,6 +14,12 @@ var localData;
 
 var editor = document.getElementById("editor");
 
+// vh units nonsense:
+var vh = window.innerHeight * 0.01;
+
+// Then we set the value in the --vh custom property to the root of the document
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
 
 folders.addEventListener("click", toggleBuckets);
 // Init board grid so we can drag those columns around.
@@ -141,6 +147,7 @@ function loadData(){
       })
     })
   }
+  toggleLoader();
 }
 
 function saveAllData(){
@@ -314,3 +321,10 @@ function exportNotes() {
 
   document.body.removeChild(element);
 }
+
+function toggleLoader(){
+  setTimeout(function(){
+    document.querySelector('#splash').classList.toggle("hide");
+  },900);
+}
+ 

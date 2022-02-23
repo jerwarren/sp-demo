@@ -297,10 +297,11 @@ div#menu {
 }
 
 #folders {
-  top: calc(100vh - 76px);
+  top: calc(100% - 76px);
   left: 0px;
   border-top-left-radius: 0;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   transition: 0.3s;
   border-top-right-radius: 40px;
 }
@@ -532,6 +533,36 @@ div#word-count {
   border-bottom-right-radius: 5px;
 }
 
+#splash {
+  display:block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color:#bf1e74;
+  background-image: url(img/Splat\ BG.png);
+  background-size: cover;
+  z-index: 70;
+  padding-top: 20vh;
+  transition: 0.8s all;
+}
+
+#splash.hide {
+  display:none;
+  transition: 0.8s all;
+}
+
+#splash img {
+  max-width: 80%;
+  margin-left: 10%;
+}
+
+#splash .loader {
+  width: 58px;
+  height: 58px;
+  margin-left: calc((100vw - 58px) / 2);
+}
 
 
 
