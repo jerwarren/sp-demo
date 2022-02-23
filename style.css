@@ -555,8 +555,8 @@ div#word-count {
 
 #splash img {
   width: 80%;
-  max-width: 400px;
-  margin-left: 10%;
+  max-width: 4300px;
+  margin-left: calc((100vw - 300px) / 2)
 }
 
 #splash .loader {
