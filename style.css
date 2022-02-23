@@ -297,7 +297,7 @@ div#menu {
 }
 
 #folders {
-  top: calc(100% - 76px);
+  top: calc(100% - 71px);
   left: 0px;
   border-top-left-radius: 0;
   height: 100vh;
@@ -554,7 +554,8 @@ div#word-count {
 }
 
 #splash img {
-  max-width: 80%;
+  width: 80%;
+  max-width: 400px;
   margin-left: 10%;
 }
 
