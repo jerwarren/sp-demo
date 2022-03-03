@@ -14,6 +14,8 @@ var localData;
 
 var editor = document.getElementById("editor");
 
+var searchField = document.querySelector("#search input");
+
 // vh units nonsense:
 var vh = window.innerHeight * 0.01;
 
@@ -90,6 +92,7 @@ function toggleSearch(){
   if (body.getAttribute("data-search-state") == "closed"){
     body.setAttribute("data-search-state", "open");
   } else {
+    clearQuery();
     body.setAttribute("data-search-state", "closed");
   }
 }
@@ -327,4 +330,16 @@ function toggleLoader(){
     document.querySelector('#splash').classList.toggle("hide");
   },900);
 }
+
+function searchQuery() {
+  grid.filter(function (item) {
+    return item.getElement().dataset.text.match(searchField.value);
+  });
+}
  
+function clearQuery() {
+  searchField.value = "";
+  grid.filter(function (item) {
+    return item.getElement().getAttribute("data-text");
+  });
+}
