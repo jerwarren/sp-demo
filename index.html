@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shakespiranha</title>
-    <link href="style.css?2022-03-03" rel="stylesheet">
+    <link href="style.css?2022-03-03a" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
       rel="stylesheet">
 </head>
-<body data-menu-state="closed" data-search-state="closed" data-folder-view="list" data-direction="asc">
+<body data-current-folder="0" data-menu-state="closed" data-folder-state="closed" data-search-state="closed" data-folder-view="list" data-direction="asc">
     
    <!--
      <button id="add-folder">
@@ -69,7 +69,7 @@
     </div>
 
     <div id="folders" class="button-wrapper">
-        <button>
+        <button id="toggle-folders">
             <span class="material-icons closed">
                 inventory_2
             </span>
@@ -78,6 +78,7 @@
             </span>
         </button>
         <div id="menu">
+            <!--
             <div class="folder">
                 <span class="material-icons">folder</span><br>
                 Literature
@@ -117,7 +118,11 @@
                 <span class="material-icons">folder</span><br>
                 Folder Name
             </div>
+            -->
         </div>
+        <button id="add-folder" onclick="addFolder()">
+            add folder
+        </button>
     </div>
 
     <div id="search" class="button-wrapper">
@@ -133,9 +138,12 @@
     </div>
     
     <div id="toggle-menu" class="button-wrapper">
-        <button>
-            <span class="material-icons">
+        <button onclick="toggleMenu()">
+            <span class="material-icons closed">
                 menu
+            </span>
+            <span class="material-icons open">
+                close
             </span>
         </button>
     </div>
@@ -157,6 +165,21 @@
         </div>
     </div>
 
+    <div id="notes-menu">
+        <div class="menu-item" onclick="importNotes()">
+            <span class="material-icons">
+                upload
+            </span> 
+            import
+        </div>
+        <div class="menu-item" onclick="exportNotes()">
+            <span class="material-icons">
+                download
+            </span> 
+            export
+        </div>
+    </div>
+
     <div id="splash">
         <img src="img/logo.png?foo">
         <img src="img/wordmark-1.png?foo">
@@ -165,6 +188,6 @@
     </footer>
     <script src="//cdn.jsdelivr.net/npm/muuri@0.9.5/dist/muuri.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/web-animations-js@2.3.2/web-animations.min.js"></script>
-    <script src="script.js?2022-03-03"></script>
+    <script src="script.js?2022-03-03a"></script>
 </body>
 </html>

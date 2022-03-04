@@ -1,5 +1,6 @@
 var body = document.querySelector('body');
-var folders = document.querySelector('#folders');
+var folders = document.querySelector('#toggle-folders');
+var foldersContainer = document.querySelector('#menu');
 var dragContainer = document.querySelector('.drag-container');
 var itemContainers = [].slice.call(document.querySelectorAll('.board-column-content'));
 
@@ -81,10 +82,10 @@ function initGrid(){
 }
 
 function toggleBuckets(){
-  if (body.getAttribute("data-menu-state") == "closed"){
-    body.setAttribute("data-menu-state", "open");
+  if (body.getAttribute("data-folder-state") == "closed"){
+    body.setAttribute("data-folder-state", "open");
   } else {
-    body.setAttribute("data-menu-state", "closed");
+    body.setAttribute("data-folder-state", "closed");
   }
 }
 
@@ -97,6 +98,13 @@ function toggleSearch(){
   }
 }
 
+function toggleMenu(){
+  if (body.getAttribute("data-menu-state") == "closed"){
+    body.setAttribute("data-menu-state", "open");
+  } else {
+    body.setAttribute("data-menu-state", "closed");
+  }
+}
 
 function toggleView(){
   mode = body.getAttribute("data-folder-view");
@@ -136,6 +144,10 @@ function loadData(){
     localData.notes.forEach(function(note){
       addNoteToGrid(note);
     });
+    localData.folders.forEach(function(folder){
+      console.log(folder)
+      addFolder(folder.id, folder.name);
+    })
 
   } else {
     console.log("we don't have localstorage");
@@ -148,8 +160,14 @@ function loadData(){
       localData.notes.forEach(function(note){
         addNoteToGrid(note);
       })
+      
+      localData.folders.forEach(function(folder){
+        if (folder.id != 0)
+        addFolder(folder.id, folder.name);
+      })
     })
   }
+
   toggleLoader();
 }
 
@@ -167,7 +185,7 @@ function addNoteToGrid(note, noteText=null){
     if (noteText !== null){
       note = {
         "id": now,
-        "folderId": "0",
+        "folderId": body.dataset.currentFolder,
         "createdAt": now,
         "updatedAt": now,
         "text": noteText
@@ -175,7 +193,7 @@ function addNoteToGrid(note, noteText=null){
     } else {
       note = {
         "id": now,
-        "folderId": "0",
+        "folderId": body.dataset.currentFolder,
         "createdAt": now,
         "updatedAt": now,
         "text": document.getElementById("canvas").value
@@ -193,6 +211,7 @@ function addNoteToGrid(note, noteText=null){
   newNote.dataset.createdAt = note.createdAt;
   newNote.dataset.updatedAt = note.updatedAt;
   newNote.dataset.text = note.text;
+  newNote.setAttribute("ondragstart","drag(event)");
 
   newNote.setAttribute("class", "board-item");
   newNote.setAttribute("onclick", "selectNote('"+note.id+"')");
@@ -333,8 +352,18 @@ function toggleLoader(){
 
 function searchQuery() {
   grid.filter(function (item) {
-    return item.getElement().dataset.text.match(searchField.value);
+    re = new RegExp(`\\b${searchField.value}\\b`, 'gi');
+    return item.getElement().dataset.text.match(re);
   });
+}
+
+function filterCategory(categoryId, categoryName){
+  document.querySelector(".header .label").innerHTML=categoryName;
+  body.dataset.currentFolder = categoryId;
+  grid.filter(function (item) {
+    return item.getElement().dataset.folderId.match(categoryId);
+  });
+  toggleBuckets();
 }
  
 function clearQuery() {
@@ -342,4 +371,47 @@ function clearQuery() {
   grid.filter(function (item) {
     return item.getElement().getAttribute("data-text");
   });
+}
+
+function addFolder(folderId=null, folderName=null){
+  if(folderId == null){
+    folderId = Date.now();
+    folderName = "New Folder";
+    localData.folders.push({id: folderId, name: folderName, sort: 'age', order: 'data', direction: 'ascending'})
+  } else {
+    folderName = folderName;
+  }
+
+  foldersContainer.innerHTML = foldersContainer.innerHTML + `<div data-id="${folderId}" data-name="${folderName}" class="folder" onclick="filterCategory('${folderId}', '${folderName}')"><span class="material-icons">folder</span><br><input type="text" value="${folderName}" onchange="renameFolder('${folderId}')"></input></div>`;
+  document.querySelector(".folder[data-id='"+folderId+"'] input").select();
+  
+}
+
+function renameFolder(folderId){
+  localData["folders"].forEach(function(item, i){
+    if (item.id == folderId){
+      item.name = document.querySelector(".folder[data-id='"+folderId+"'] input").value;
+      document.querySelector(".folder[data-id='"+folderId+"']").dataset.name=item.name;
+      saveAllData();
+    }
+  })
+}
+
+function enterFolder(folderId){
+
+}
+
+// drag and drop stuff
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  console.log(ev.target.dataset.id);
 }

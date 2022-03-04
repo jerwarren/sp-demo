@@ -25,21 +25,19 @@ div#content {
   padding-bottom: 76px;
 }
 
-[data-menu-state="open"] div#content {
+[data-folder-state="open"] div#content {
   padding-left: 68px;
   transition: 0.6s;
 }
 
-[data-menu-state="open"] {
+[data-folder-state="open"] {
   position: fixed;
 }
 
-
-
 div#menu {
   width: 71px;
-  height: calc(100vh - 81px);
-  position: fixed;
+  height: calc(100vh - 150px);
+  position: relative;
   overflow-y: scroll;
   overflow-x: hidden;
   color: #741b47;
@@ -332,7 +330,7 @@ div#menu {
   margin-top: 3px;
 }
 
-[data-menu-state="open"] #search {
+[data-folder-state="open"] #search {
   box-shadow: none;
 }
 
@@ -341,30 +339,30 @@ div#menu {
   transition: 0.3s;
 }
 
-[data-menu-state="open"] #folders {
+[data-folder-state="open"] #folders {
   top: 0px;
   transition: 0.3s;
   border-top-right-radius: 0;
   z-index: 41
 }
 /* folders  menu */
-[data-menu-state="open"] #folders button {
+[data-folder-state="open"] #folders #toggle-folders {
   background-color: #741b47;
 }
 
-[data-menu-state="open"] #folders button .open {
+[data-folder-state="open"] #folders #toggle-folders .open {
   display: block;
 }
 
-[data-menu-state="open"] #folders button .closed {
+[data-folder-state="open"] #folders #toggle-folders .closed {
   display: none;
 }
 
-[data-menu-state="closed"] #folders button .open {
+[data-folder-state="closed"] #folders #toggle-folders .open {
   display: none;
 }
 
-[data-menu-state="closed"] #folders button .closed {
+[data-folder-state="closed"] #folders #toggle-folders .closed {
   display: block;
 }
 
@@ -388,6 +386,27 @@ div#menu {
 }
 
 [data-search-state="closed"] #search button .closed {
+  display: block;
+}
+
+/* menu */
+[data-menu-state="open"] #toggle-menu button {
+  background-color: #741b47;
+}
+
+[data-menu-state="open"] #toggle-menu button .open {
+  display: block;
+}
+
+[data-menu-state="open"] #toggle-menu button .closed {
+  display: none;
+}
+
+[data-menu-state="closed"] #toggle-menu button .open {
+  display: none;
+}
+
+[data-menu-state="closed"] #toggle-menu button .closed {
   display: block;
 }
 
@@ -563,8 +582,42 @@ div#word-count {
   margin-left: calc((100vw - 58px) / 2);
 }
 
+div#notes-menu {
+  position: fixed;
+  width: 200px;
+  height: 300px;
+  background-color: #fbb040;
+  margin-left: calc(50vw - 100px);
+  margin-right: calc(50vw - 100px);
+  border-radius: 50px;
+  transition: 0.3s;
+}
 
+[data-menu-state="open"] div#notes-menu {
+  top: calc(100vh - 250px);
+}
 
+[data-menu-state="closed"] div#notes-menu {
+  top: calc(100vh + 250px);
+}
+
+.menu-item {
+  background-color: #00aaee;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  margin: 20px;
+  height: 48px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  padding-top: 5px;
+}
+
+button#add-folder {
+  /* margin-top: 25px; */
+  bottom: 9px;
+  position: absolute;
+}
 @media (max-width: 600px) {
   .board-item-content {
     /* text-align: center; */
