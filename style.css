@@ -166,10 +166,38 @@ div#menu {
   display: none;
 }
 
+.note-buttons button {
+  background-color: #00aaee;
+  color: white;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  border: none;
+}
+
+.note-buttons .delete-note {
+  background-color: unset;
+  color:#00aaee;
+  margin-top: -50px;
+  left: 0;
+  position:absolute;
+  bottom: 0;
+}
+
+.note-buttons .edit-note {
+  right: 0;
+  margin-right: 5px;
+  bottom: 0;
+  margin-bottom: 5px;
+  z-index: 100;
+}
+
+
 .board-item.selected {
   border: 5px solid #00aaee;
   height: 110px;
   max-height: 110px;
+  overflow-x: hidden;
 }
 
 .board-item.selected .note-buttons {
@@ -179,7 +207,7 @@ div#menu {
   position: absolute;
   bottom: 0;
   text-align: right;
-  padding-right: 15px;
+  width: 100%;
 }
 
 
@@ -390,9 +418,16 @@ div#menu {
 }
 
 /* menu */
-[data-menu-state="open"] #toggle-menu button {
+[data-menu-state="open"] #toggle-menu.button-wrapper {
+  
+  z-index: 100!important;
+  position: absolute;
+}
+
+[data-menu-state="open"] #toggle-menu.button-wrapper button {
   background-color: #741b47;
 }
+
 
 [data-menu-state="open"] #toggle-menu button .open {
   display: block;
@@ -412,6 +447,7 @@ div#menu {
 
 #toggle-menu {
   left: calc(50vw - 38px);
+  position:absolute;
 }
 
 
@@ -458,27 +494,73 @@ div#direction {
   right: 15px;
 }
 
-div#editor {
+div#note-editor {
   display: none;
 }
 
-div#editor.visible {
+div#note-editor.visible {
   display: block;
-  position: fixed;
-  top: 0;
-  bottom: 0;
+  position: absolute;
+  padding: 2em;
+  top: 3em;
   width: 100vw;
   z-index: 50;
+  height: auto;
+  min-height:175px;
+  width: 320px;
+  background-color:#fbb040;
+  border-radius: 40px;
+  margin-left: calc(50vw - 160px);
 }
-div#editor.visible:before {
-  position: absolute;
-  content: '';
-  top: 0;
+
+
+div#folder-editor {
+  display: none;
+}
+
+div#folder-editor.visible {
+  display: block;
+  position: fixed;
+  top: 3em;
+  width: auto;
+  height: 150px;
+  width: 300px;
+  padding: 3em;
+  padding-top: 2em;
+  margin-left: calc(50vw - 150px);
+  margin-right: 3em;
+  z-index: 50;
+  background-color:#fbb040;
+  border-radius: 25px;
+}
+
+#folder-editor #folder-name {
+  width: 100%
+}
+
+.editor #save-button {
+  position:absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: -0.75em;
+  margin-bottom: -0.57em;
+}
+
+.editor #delete-button {
+  position:absolute;
+  bottom: 0.5em;
+  left: 0.5em;
+}
+
+
+[data-editing="true"] #scrim {
+  position:absolute;
+  top:0;
+  height: 100vh;
   left: 0;
   width: 100vw;
-  height: calc(100vh + 100px);
   background: #741b48df;
-  margin-top: -100px;
+  z-index: 50;
 }
 
 
@@ -519,14 +601,9 @@ textarea {
 textarea#canvas {
   width: auto;
   background-color: white;
-  height: 100%;
-  min-height: 40vw;
-  max-height: 40vh;
-  margin-left: 2rem;
-  margin-right: 2rem;
-  margin-top: 2rem;
+  height: auto;
   position: relative;
-  width: calc(100vw - 4rem);
+  width: 100%;
   padding: 1rem;
   overflow-y: scroll;
   resize:none;
@@ -583,18 +660,25 @@ div#word-count {
 }
 
 div#notes-menu {
-  position: fixed;
+  position: absolute;
   width: 200px;
-  height: 300px;
+  height: auto;
   background-color: #fbb040;
   margin-left: calc(50vw - 100px);
   margin-right: calc(50vw - 100px);
   border-radius: 50px;
   transition: 0.3s;
+  z-index: 50;
+  padding-bottom: 60px;
+}
+
+[data-current-folder="0"] #notes-menu .folder-option {
+  display: none;
 }
 
 [data-menu-state="open"] div#notes-menu {
-  top: calc(100vh - 250px);
+  top: 100%;
+  transform: translateY(-100%);
 }
 
 [data-menu-state="closed"] div#notes-menu {

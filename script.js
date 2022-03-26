@@ -13,7 +13,8 @@ var boardNotes = document.querySelector('.board-column-content');
 
 var localData;
 
-var editor = document.getElementById("editor");
+var noteEditor = document.getElementById("note-editor");
+var folderEditor = document.getElementById("folder-editor");
 
 var searchField = document.querySelector("#search input");
 
@@ -101,8 +102,11 @@ function toggleSearch(){
 function toggleMenu(){
   if (body.getAttribute("data-menu-state") == "closed"){
     body.setAttribute("data-menu-state", "open");
+    body.dataset.editing = "true";
+
   } else {
     body.setAttribute("data-menu-state", "closed");
+    body.dataset.editing = "false";
   }
 }
 
@@ -179,10 +183,15 @@ function saveAllData(){
 
 }
 
-function addNoteToGrid(note, noteText=null){
+function addNoteToGrid(note, noteText=null, newNote=false){
+  body.dataset.editing = "false";
+  console.log("adding note");
+  
   if (!note){
+    console.log("no note");
     now = Date.now();
     if (noteText !== null){
+      console.log("no note.text");
       note = {
         "id": now,
         "folderId": body.dataset.currentFolder,
@@ -191,6 +200,7 @@ function addNoteToGrid(note, noteText=null){
         "text": noteText
       }
     } else {
+      console.log("we have note.text");
       note = {
         "id": now,
         "folderId": body.dataset.currentFolder,
@@ -203,27 +213,60 @@ function addNoteToGrid(note, noteText=null){
     localStorage.setItem("data", JSON.stringify(localData));
   }
   
+  /*
+  if (newNote){
+    console.log("new note");
+    note = {
+      "id": noteEditor.dataset.id,
+      "folderId": body.dataset.currentFolder,
+      "createdAt": noteEditor.dataset.id,
+      "updatedAt": now,
+      "text": document.getElementById("canvas").value
+    }
+    var newNote = document.createElement('div');
+    noteEditor.classList.remove("visible");
+    newNote.dataset = note;
+    newNote.dataset.id = note.id;
+    newNote.dataset.folderId = note.folderId;
+    newNote.dataset.createdAt = note.createdAt;
+    newNote.dataset.updatedAt = note.updatedAt;
+    newNote.dataset.text = note.text;
+    //newNote.setAttribute("ondragstart","drag(event)");
+
+    newNote.setAttribute("class", "board-item");
+    newNote.setAttribute("onclick", "selectNote('"+note.id+"')");
+
+    //<div data-id="1" class="board-item"><div class="board-item-content">text here</div></div>
+    
+    newNote.innerHTML = `<div class="board-item-content"><textarea disabled=disabled>${note.text}</textarea></div><div class="note-buttons"><button class="edit-note" onclick="editNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">edit</span></button> <button class="delete-note"><span class="material-icons">delete</span></button></div>`;
+    
+
+    grid.add(newNote);
+  }
+  */
+  
   var newNote = document.createElement('div');
-  editor.classList.remove("visible");
+  noteEditor.classList.remove("visible");
   newNote.dataset = note;
   newNote.dataset.id = note.id;
   newNote.dataset.folderId = note.folderId;
   newNote.dataset.createdAt = note.createdAt;
   newNote.dataset.updatedAt = note.updatedAt;
   newNote.dataset.text = note.text;
-  newNote.setAttribute("ondragstart","drag(event)");
+  //newNote.setAttribute("ondragstart","drag(event)");
 
   newNote.setAttribute("class", "board-item");
   newNote.setAttribute("onclick", "selectNote('"+note.id+"')");
 
   //<div data-id="1" class="board-item"><div class="board-item-content">text here</div></div>
   
-  newNote.innerHTML = `<div class="board-item-content"><textarea disabled=disabled>${note.text}</textarea></div><div class="note-buttons">edit delete</div>`;
+  newNote.innerHTML = `<div class="board-item-content"><textarea disabled=disabled>${note.text}</textarea></div><div class="note-buttons"><button class="edit-note" onclick="editNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">edit</span></button> <button class="delete-note"><span class="material-icons">delete</span></button></div>`;
   
 
   grid.add(newNote);
 
   //saveAllData();
+  
 }
 
 function selectNote(noteId){
@@ -274,28 +317,47 @@ function countWords() {
 }
 
 function newNote(){
-  editor.classList.add("visible");
+  noteEditor.classList.add("visible");
+  body.dataset.editing = "true";
+  noteEditor.dataset.noteId = Date.now();
   document.querySelector("#canvas").value="";
   document.querySelector("#word-count").innerHTML = "0 words";
 
 }
 
-function addNote(){
+function editNote(noteId) {
+  document.querySelector("#canvas").dataset.noteId = noteId;
+  noteEditor.dataset.noteId = noteId;
 
-  var notes = [];
-
-  boardNotes.querySelectorAll('.board-item').forEach(function(item, index){
-    notes.push({
-        "id": item.dataset.id,
-        "text": item.dataset.text,
-        "createdAt": item.dataset.createdAt,
-        "updatedAt": item.dataset.updatedAt,
-        "synced": item.dataset.synced,
-        "folderId": 0,
-        "folder_custom_order": 0
-    })
+  localData["notes"].forEach(function(item, i){
+    if (item.id == noteId){
+      document.querySelector("#canvas").value = item.text;
+      countWords();
+    }
   })
-  saveAllData();
+
+  noteEditor.classList.add("visible");
+  body.dataset.editing = "true";
+}
+
+function saveNote(noteId){
+  noteFound = false;
+  noteIndex = null;
+  
+  localData["notes"].forEach(function(item, i){
+    if (item.id == noteId){
+      noteFound = true;
+      noteIndex = i;
+    }
+  })
+
+  if (noteFound){
+    localData["notes"][i].text = document.querySelector("#canvas").value;
+    localData["notes"][i].updatedAt = new Date.now;
+    saveAllData();
+  } else {
+
+  }
 }
 
 function importNotes(){
@@ -377,23 +439,59 @@ function addFolder(folderId=null, folderName=null){
   if(folderId == null){
     folderId = Date.now();
     folderName = "New Folder";
+    editFolder(folderId);
     localData.folders.push({id: folderId, name: folderName, sort: 'age', order: 'data', direction: 'ascending'})
   } else {
     folderName = folderName;
   }
 
-  foldersContainer.innerHTML = foldersContainer.innerHTML + `<div data-id="${folderId}" data-name="${folderName}" class="folder" onclick="filterCategory('${folderId}', '${folderName}')"><span class="material-icons">folder</span><br><input type="text" value="${folderName}" onchange="renameFolder('${folderId}')"></input></div>`;
-  document.querySelector(".folder[data-id='"+folderId+"'] input").select();
+  foldersContainer.innerHTML = foldersContainer.innerHTML + `
+  <div data-id="${folderId}" data-name="${folderName}" class="folder" onclick="filterCategory('${folderId}', '${folderName}')">
+    <span class="material-icons">folder</span>
+    <br>
+    <span class="folder-name">${folderName}</span>
+  </div>`;  
   
 }
 
-function renameFolder(folderId){
+function closeEditor(){
+  body.dataset.editing = false;
+  document.querySelectorAll(".editor").forEach(function(item, idx){
+    item.classList.remove("visible");
+  })
+}
+
+function editFolder(folderId){
+  folderName = "New Folder";
+  if (typeof folderId == "undefined"){
+    folderId = body.dataset.currentFolder;
+    toggleMenu();
+  }
+  folderName = "New Folder";
+  localData["folders"].forEach(function(item, i){
+    console.log(item)
+    if (item.id == folderId){
+      folderName = item.name;
+    }
+  })
+  document.querySelector("#folder-name").value = folderName;
+  body.dataset.editing = true;
+  folderEditor.dataset.folderId = folderId;
+  folderEditor.classList.add("visible");
+
+}
+
+function renameFolder(folderId, folderName){
+  console.log("renaming folder")
+  console.log(folderName)
   localData["folders"].forEach(function(item, i){
     if (item.id == folderId){
-      item.name = document.querySelector(".folder[data-id='"+folderId+"'] input").value;
-      document.querySelector(".folder[data-id='"+folderId+"']").dataset.name=item.name;
+      console.log(item)
+      localData["folders"][i].name = folderName;
+      document.querySelector(".folder[data-id='"+folderId+"'] .folder-name").innerHTML = item.name;
       saveAllData();
     }
+    folderEditor.classList.add("visible");
   })
 }
 

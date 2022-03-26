@@ -50,7 +50,7 @@
             </div>
         </div>
         
-
+        <div id="scrim"></div>
        
         <button id="import-notes" onclick="importNotes()">
             <span class="material-icons">
@@ -83,41 +83,7 @@
                 <span class="material-icons">folder</span><br>
                 Literature
             </div>
-            <div class="folder">
-                <span class="material-icons">folder</span><br>
-                Art
-            </div>
-            <div class="folder current">
-                <span class="material-icons">folder</span><br>
-                Lyrics
-            </div>
-            <div class="folder">
-                <span class="material-icons">folder</span><br>
-                Movies
-            </div>
-            <div class="folder">
-                Radio Plays
-            </div>
-            <div class="folder">
-                <span class="material-icons">folder</span><br>
-                Folder Name
-            </div>
-            <div class="folder">
-                <span class="material-icons">folder</span><br>
-                Folder Name
-            </div>
-            <div class="folder">
-                <span class="material-icons">folder</span><br>
-                Folder Name
-            </div>
-            <div class="folder">
-                <span class="material-icons">folder</span><br>
-                Folder Name
-            </div>
-            <div class="folder">
-                <span class="material-icons">folder</span><br>
-                Folder Name
-            </div>
+          
             -->
         </div>
         <button id="add-folder" onclick="addFolder()">
@@ -154,13 +120,26 @@
             </span>
         </button>
     </div>
-    <div id="editor" class="" onkeyup="countWords()">
+    <div id="note-editor" class="editor" onchange="countWords()" onkeyup="countWords()">
         <textarea id="canvas"></textarea>
         <div id="word-count">0 words</div>
         <div id="delete-button">
             <span class="material-icons">delete</span>
         </div>
-        <div id="save-button" onclick="addNoteToGrid()">
+        <div id="save-button" onclick="addNoteToGrid(null,null,true)">
+            <span class="material-icons">done</span>
+        </div>
+    </div>
+    
+    <div id="folder-editor" class="editor">
+        Folder name:
+        <br>
+        <input id="folder-name" val="New Folder" onchange="renameFolder(this.parentNode.dataset.folderId, this.value)">
+        
+        <div id="delete-button">
+            <span class="material-icons">delete</span>
+        </div>
+        <div id="save-button" onclick="closeEditor();">
             <span class="material-icons">done</span>
         </div>
     </div>
@@ -177,6 +156,12 @@
                 download
             </span> 
             export
+        </div>
+        <div class="menu-item folder-option" onclick="editFolder()">
+            <span class="material-icons">
+                edit
+            </span> 
+            Edit folder
         </div>
     </div>
 
