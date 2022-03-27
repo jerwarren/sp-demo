@@ -114,19 +114,19 @@
         </button>
     </div>
     <div id="add-note" class="button-wrapper">
-        <button onclick="newNote()">
+        <button onclick="createNewNote()">
             <span class="material-icons">
                 add
             </span>
         </button>
     </div>
-    <div id="note-editor" class="editor" onchange="countWords()" onkeyup="countWords()">
+    <div id="note-editor" class="editor" onchange="countWords()" onkeyup="countWords()" data-newNote="false">
         <textarea id="canvas"></textarea>
         <div id="word-count">0 words</div>
         <div id="delete-button">
             <span class="material-icons">delete</span>
         </div>
-        <div id="save-button" onclick="addNoteToGrid(null,null,true)">
+        <div id="save-button" onclick="addNoteToGrid()">
             <span class="material-icons">done</span>
         </div>
     </div>

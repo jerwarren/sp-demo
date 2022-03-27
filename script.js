@@ -176,6 +176,7 @@ function loadData(){
 }
 
 function saveAllData(){
+  console.log("saving localstorage")
   grid.refreshItems()
   grid.layout();
 
@@ -183,97 +184,110 @@ function saveAllData(){
 
 }
 
-function addNoteToGrid(note, noteText=null, newNote=false){
+function addNoteToGrid(note, noteText=null){
+  rightNow = Date.now();
   body.dataset.editing = "false";
-  console.log("adding note");
+  console.log("saving note");
   
-  if (!note){
-    console.log("no note");
-    now = Date.now();
-    if (noteText !== null){
-      console.log("no note.text");
+  if (noteEditor.dataset.editingNote == "true") {
+    existingNote = document.querySelector('.board-item[data-id="'+noteEditor.dataset.noteId+'"]');
+    existingNote.dataset.text = document.getElementById("canvas").value;
+    existingNote.querySelector(".board-item-content textarea").value = document.getElementById("canvas").value;
+    noteEditor.classList.remove("visible");
+    saveNote(noteEditor.dataset.noteId);
+
+    
+    
+    saveAllData();
+
+  } else {
+    if (noteEditor.dataset.newNote == "true"){
+      console.log("new note");
+      
       note = {
-        "id": now,
+        "id": noteEditor.dataset.noteId,
         "folderId": body.dataset.currentFolder,
-        "createdAt": now,
-        "updatedAt": now,
-        "text": noteText
-      }
-    } else {
-      console.log("we have note.text");
-      note = {
-        "id": now,
-        "folderId": body.dataset.currentFolder,
-        "createdAt": now,
-        "updatedAt": now,
+        "createdAt": noteEditor.dataset.noteId,
+        "updatedAt": rightNow,
         "text": document.getElementById("canvas").value
       }
+      console.log(note)
+      var newNote = document.createElement('div');
+      noteEditor.classList.remove("visible");
+      newNote.dataset = note;
+      newNote.dataset.id = note.id;
+      newNote.dataset.folderId = note.folderId;
+      newNote.dataset.createdAt = note.createdAt;
+      newNote.dataset.updatedAt = note.updatedAt;
+      newNote.dataset.text = note.text;
+      //newNote.setAttribute("ondragstart","drag(event)");
+  
+      newNote.setAttribute("class", "board-item");
+      newNote.setAttribute("onclick", "selectNote('"+note.id+"')");
+  
+      //<div data-id="1" class="board-item"><div class="board-item-content">text here</div></div>
+      
+      newNote.innerHTML = `<div class="board-item-content"><textarea disabled=disabled>${note.text}</textarea></div><div class="note-buttons"><button class="edit-note" onclick="editNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">edit</span></button> <button class="delete-note" onclick="deleteNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">delete</span></button></div>`;
+      
+  
+      grid.add(newNote);
+      grid.refreshItems()
+      grid.layout();
+
+    
+    } else {
+      console.log("not a new note")
+      if (noteText !== null){
+        console.log("we have note text, so it's imported")
+        note = {
+          "id": rightNow,
+          "folderId": body.dataset.currentFolder,
+          "createdAt": rightNow,
+          "updatedAt": rightNow,
+          "text": noteText
+        }
+      } else {
+        console.log("this note is loaded from data")
+      }
+  
+      var newNote = document.createElement('div');
+      noteEditor.classList.remove("visible");
+      newNote.dataset = note;
+      newNote.dataset.id = note.id;
+      newNote.dataset.folderId = note.folderId;
+      newNote.dataset.createdAt = note.createdAt;
+      newNote.dataset.updatedAt = note.updatedAt;
+      newNote.dataset.text = note.text;
+      //newNote.setAttribute("ondragstart","drag(event)");
+  
+      newNote.setAttribute("class", "board-item");
+      newNote.setAttribute("onclick", "selectNote('"+note.id+"')");
+  
+      //<div data-id="1" class="board-item"><div class="board-item-content">text here</div></div>
+      
+      newNote.innerHTML = `<div class="board-item-content"><textarea disabled=disabled>${note.text}</textarea></div><div class="note-buttons"><button class="edit-note" onclick="editNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">edit</span></button> <button class="delete-note" onclick="deleteNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">delete</span></button></div>`;
+      
+  
+      grid.add(newNote);
+      grid.refreshItems()
+      grid.layout();
     }
-    localData.notes.push(note);
-    localStorage.setItem("data", JSON.stringify(localData));
+    body.dataset.editing = "false"
   }
   
-  /*
-  if (newNote){
-    console.log("new note");
-    note = {
-      "id": noteEditor.dataset.id,
-      "folderId": body.dataset.currentFolder,
-      "createdAt": noteEditor.dataset.id,
-      "updatedAt": now,
-      "text": document.getElementById("canvas").value
-    }
-    var newNote = document.createElement('div');
-    noteEditor.classList.remove("visible");
-    newNote.dataset = note;
-    newNote.dataset.id = note.id;
-    newNote.dataset.folderId = note.folderId;
-    newNote.dataset.createdAt = note.createdAt;
-    newNote.dataset.updatedAt = note.updatedAt;
-    newNote.dataset.text = note.text;
-    //newNote.setAttribute("ondragstart","drag(event)");
-
-    newNote.setAttribute("class", "board-item");
-    newNote.setAttribute("onclick", "selectNote('"+note.id+"')");
-
-    //<div data-id="1" class="board-item"><div class="board-item-content">text here</div></div>
-    
-    newNote.innerHTML = `<div class="board-item-content"><textarea disabled=disabled>${note.text}</textarea></div><div class="note-buttons"><button class="edit-note" onclick="editNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">edit</span></button> <button class="delete-note"><span class="material-icons">delete</span></button></div>`;
-    
-
-    grid.add(newNote);
-  }
-  */
   
-  var newNote = document.createElement('div');
-  noteEditor.classList.remove("visible");
-  newNote.dataset = note;
-  newNote.dataset.id = note.id;
-  newNote.dataset.folderId = note.folderId;
-  newNote.dataset.createdAt = note.createdAt;
-  newNote.dataset.updatedAt = note.updatedAt;
-  newNote.dataset.text = note.text;
-  //newNote.setAttribute("ondragstart","drag(event)");
-
-  newNote.setAttribute("class", "board-item");
-  newNote.setAttribute("onclick", "selectNote('"+note.id+"')");
-
-  //<div data-id="1" class="board-item"><div class="board-item-content">text here</div></div>
   
-  newNote.innerHTML = `<div class="board-item-content"><textarea disabled=disabled>${note.text}</textarea></div><div class="note-buttons"><button class="edit-note" onclick="editNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">edit</span></button> <button class="delete-note"><span class="material-icons">delete</span></button></div>`;
   
-
-  grid.add(newNote);
-
-  //saveAllData();
+  
   
 }
 
 function selectNote(noteId){
-  document.querySelector(".board-item[data-id='"+noteId+"']").classList.toggle("selected");
-  grid.refreshItems()
-  grid.layout();
-
+  if (document.querySelector(".board-item[data-id='"+noteId+"']")){
+    document.querySelector(".board-item[data-id='"+noteId+"']").classList.toggle("selected");
+    grid.refreshItems()
+    grid.layout();
+  }
 }
 
 function sortAsc(){
@@ -316,8 +330,10 @@ function countWords() {
       .innerHTML = numWords + " words";
 }
 
-function newNote(){
+function createNewNote(){
   noteEditor.classList.add("visible");
+  noteEditor.dataset.newNote = true;
+  noteEditor.dataset.editingNote = false;
   body.dataset.editing = "true";
   noteEditor.dataset.noteId = Date.now();
   document.querySelector("#canvas").value="";
@@ -328,6 +344,8 @@ function newNote(){
 function editNote(noteId) {
   document.querySelector("#canvas").dataset.noteId = noteId;
   noteEditor.dataset.noteId = noteId;
+  noteEditor.dataset.newNote = false;
+  noteEditor.dataset.editingNote = true;
 
   localData["notes"].forEach(function(item, i){
     if (item.id == noteId){
@@ -344,20 +362,40 @@ function saveNote(noteId){
   noteFound = false;
   noteIndex = null;
   
-  localData["notes"].forEach(function(item, i){
+  localData["notes"].forEach(function(item, index){
     if (item.id == noteId){
       noteFound = true;
-      noteIndex = i;
+      noteIndex = index;
     }
   })
 
   if (noteFound){
-    localData["notes"][i].text = document.querySelector("#canvas").value;
-    localData["notes"][i].updatedAt = new Date.now;
+    localData["notes"][noteIndex].text = document.querySelector("#canvas").value;
+    localData["notes"][noteIndex].updatedAt = Date.now;
     saveAllData();
   } else {
 
   }
+}
+
+function deleteNote(noteId){
+  console.log("delete noite")
+  foundNote = null;
+
+  localData["notes"].forEach(function(item, index){
+    
+    if (item.id == noteId){
+      foundNote = index;
+      localData["notes"].splice(index, 1);
+      existingNote = document.querySelector('.board-item[data-id="'+noteId+'"]');
+      itemToDelete = grid.getItem(existingNote);
+      grid.remove([itemToDelete], {removeElements: true});
+      grid.refreshItems();
+      grid.layout();
+
+      saveAllData();
+    }
+  })
 }
 
 function importNotes(){
