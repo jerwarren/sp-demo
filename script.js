@@ -270,7 +270,7 @@ function addNoteToGrid(note, noteText=null){
   
       //<div data-id="1" class="board-item"><div class="board-item-content">text here</div></div>
       
-      newNote.innerHTML = `<div class="board-item-content"><textarea disabled=disabled>${note.text}</textarea></div><div class="note-buttons"><button class="edit-note" onclick="editNote(this.parentNode.parentNode.parentNode.dataset.id)"><span class="material-icons">edit</span></button> <button class="delete-note" onclick="deleteNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">delete</span></button></div>`;
+      newNote.innerHTML = `<div class="board-item-content"><textarea disabled=disabled>${note.text}</textarea></div><div class="note-buttons"><button class="edit-note" onclick="editNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">edit</span></button> <button class="delete-note" onclick="deleteNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">delete</span></button></div>`;
       
       columnGrids[0].add(newNote);
       columnGrids[0].refreshItems()
@@ -308,7 +308,7 @@ function addNoteToGrid(note, noteText=null){
   
       //<div data-id="1" class="board-item"><div class="board-item-content">text here</div></div>
       
-      newNote.innerHTML = `<div class="board-item-content"><textarea disabled=disabled>${note.text}</textarea></div><div class="note-buttons"><button class="edit-note" onclick="editNote(this.parentNode.parentNode.parentNode.dataset.id)"><span class="material-icons">edit</span></button> <button class="delete-note" onclick="deleteNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">delete</span></button></div>`;
+      newNote.innerHTML = `<div class="board-item-content"><textarea disabled=disabled>${note.text}</textarea></div><div class="note-buttons"><button class="edit-note" onclick="editNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">edit</span></button> <button class="delete-note" onclick="deleteNote(this.parentNode.parentNode.dataset.id)"><span class="material-icons">delete</span></button></div>`;
       
       //saveAllData();
       columnGrids[0].add(newNote);
@@ -388,12 +388,13 @@ function createNewNote(){
 }
 
 function editNote(noteId) {
+  console.log(noteId)
   document.querySelector("#canvas").dataset.noteId = noteId;
   noteEditor.dataset.noteId = noteId;
   noteEditor.dataset.newNote = false;
   noteEditor.dataset.editingNote = true;
 
-  localData["notes"].forEach(function(item, i){
+  localData.notes.forEach(function(item, i){
     if (item.id == noteId){
       document.querySelector("#canvas").value = item.text;
       countWords();
