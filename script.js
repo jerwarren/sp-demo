@@ -420,6 +420,7 @@ function saveNote(noteId){
     localData["notes"][noteIndex].text = document.querySelector("#canvas").value;
     localData["notes"][noteIndex].updatedAt = Date.now;
     saveAllData();
+    noteEditor.classList.remove("visible");
   } else {
 
   }
