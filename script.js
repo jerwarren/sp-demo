@@ -38,6 +38,10 @@ function initGrid(){
     grid = new Muuri(container, {
       items: '.board-item',
       dragEnabled: true,
+      dragStartPredicate: {
+        distance: 0,
+        delay: 100
+      },
       sortData: {
         id: function (item, element) {
           console.log(grid.getElement(element).dataset);
